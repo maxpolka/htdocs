@@ -1,0 +1,23 @@
+{
+    "name": "maxpolka/pop-it-mvc",
+    "description": "My project is for practic",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maxim",
+            "email": "www.bigstar.promax@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 | ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "core/Src/",
+            "": "app/"
+        }
+    }
+ 
+}
