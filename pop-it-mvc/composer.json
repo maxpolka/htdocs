@@ -18,8 +18,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Src\\": "core/Src/",
-            "": "app/"
+            "Src\\": "pop-it-mvc/core/Src/",
+            "": "pop-it-mvc/app/"
         }
     }
  
