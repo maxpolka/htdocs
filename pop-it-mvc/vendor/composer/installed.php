@@ -3,7 +3,7 @@
         'name' => 'maxpolka/pop-it-mvc',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'd750fda56194443d2829973bd6080f338f163817',
+        'reference' => '384176ec70c53ea7f9f4a6449b0cb58e7b2c51d1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -152,7 +152,7 @@
         'maxpolka/pop-it-mvc' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'd750fda56194443d2829973bd6080f338f163817',
+            'reference' => '384176ec70c53ea7f9f4a6449b0cb58e7b2c51d1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -166,6 +166,17 @@
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(
                 0 => '3.x-dev',
+            ),
+            'dev_requirement' => false,
+        ),
+        'nikic/fast-route' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'd3ada013d0f683ad2a8d0614fc97917a6ab72ce9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../nikic/fast-route',
+            'aliases' => array(
+                0 => '2.0.x-dev',
             ),
             'dev_requirement' => false,
         ),
