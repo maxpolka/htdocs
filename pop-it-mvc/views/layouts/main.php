@@ -19,6 +19,11 @@
            ?>
            <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
            <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
+           <a href="<?= app()->route->getUrl('/frames') ?>">Отдел кадров</a>
+           <a href="<?= app()->route->getUrl('/colculate_compos') ?>">Подсчет состава</a>
+           <a href="<?= app()->route->getUrl('/department_sel') ?>">Выбор подразделения</a>
+           <a href="<?= app()->route->getUrl('/tier') ?>">Прикрепить сотрудника</a>
+           <a href="<?= app()->route->getUrl('/Add_employee') ?>">Добавить сотрудника отдела кадров</a>
        <?php
        else:
            ?>
@@ -53,6 +58,29 @@
    display: flex;
    flex-direction: column;
    gap:10px;
+  }
+
+  button:hover{
+    background-color: aqua;
+  }
+
+  .count_input{
+    width: 40px;
+    margin-left: 20px;
+  }
+
+  #department_button{
+    width: 65px;
+    margin-left: 20px;
+  }
+
+  #emp_button{
+    width: 85px;
+    margin-left: 20px;
+  }
+
+  .list_ul{
+    text-align: start;
   }
    </style>
 </html>

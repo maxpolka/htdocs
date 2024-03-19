@@ -11,15 +11,15 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4 | ^8.1",
-        "illuminate/database": "^10.0@dev",
-        "illuminate/events": "^10.0@dev",
+        "php": "^7.4 | ^8.0",
+        "illuminate/database": "^12.0@dev",
+        "illuminate/events":    "^12.0@dev",
         "nikic/fast-route": "^2.0@dev"
     },
     "autoload": {
         "psr-4": {
-            "Src\\": "pop-it-mvc/core/Src/",
-            "": "pop-it-mvc/app/"
+            "Src\\": "core/Src/",
+            "": "app/"
         }
     }
  
