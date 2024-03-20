@@ -24,7 +24,7 @@ class Site
    public function signup(Request $request): string
    {
       if ($request->method === 'POST' && User::create($request->all())) {
-          app()->route->redirect('/go');
+          app()->route->redirect('/login');
       }
       return new View('site.signup');
    }
@@ -60,7 +60,7 @@ public function frames(Request $request): string
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
-       app()->route->redirect('/hello');
+       app()->route->redirect('/frames');
    }
    //Если аутентификация не удалась, то сообщение об ошибке
    return new View('site.hello', ['message' => 'hello working']);
@@ -75,7 +75,7 @@ public function colculate_compos(Request $request): string
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
-       app()->route->redirect('/hello');
+       app()->route->redirect('/colculate_compos');
    }
    //Если аутентификация не удалась, то сообщение об ошибке
    return new View('site.hello', ['message' => 'hello working']);
@@ -90,7 +90,7 @@ public function department_sel(Request $request): string
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
-       app()->route->redirect('/hello');
+       app()->route->redirect('/department_sel');
    }
    //Если аутентификация не удалась, то сообщение об ошибке
    return new View('site.hello', ['message' => 'hello working']);
@@ -105,7 +105,7 @@ public function tier(Request $request): string
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
-       app()->route->redirect('/hello');
+       app()->route->redirect('/tier');
    }
    //Если аутентификация не удалась, то сообщение об ошибке
    return new View('site.hello', ['message' => 'hello working']);
@@ -120,7 +120,22 @@ public function Add_employee(Request $request): string
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
-       app()->route->redirect('/hello');
+       app()->route->redirect('/Add_employee');
+   }
+   //Если аутентификация не удалась, то сообщение об ошибке
+   return new View('site.hello', ['message' => 'hello working']);
+}
+
+public function employee(Request $request): string
+{
+   //Если просто обращение к странице, то отобразить форму
+   if ($request->method === 'GET') {
+       return new View('site.employee');
+   }
+
+   //Если удалось аутентифицировать пользователя, то редирект
+   if (Auth::attempt($request->all())) {
+       app()->route->redirect('/employee    ');
    }
    //Если аутентификация не удалась, то сообщение об ошибке
    return new View('site.hello', ['message' => 'hello working']);
