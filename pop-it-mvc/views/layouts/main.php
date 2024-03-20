@@ -27,7 +27,6 @@
                    <li>
                        <p>Для сотрудников отдела кадров</p>
                        <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
-                       <a href="<?= app()->route->getUrl('/frames') ?>">Отдел кадров</a>
                        <a href="<?= app()->route->getUrl('/employee') ?>">Добавить нового сотрудника</a>
                        <a href="<?= app()->route->getUrl('/colculate_compos') ?>">Подсчет состава</a>
                        <a href="<?= app()->route->getUrl('/department_sel') ?>">Выбор подразделения</a>
@@ -36,11 +35,9 @@
                    <li>
                        <p>Для администратора</p>
                        <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
-                       <a href="<?= app()->route->getUrl('/frames') ?>">Отдел кадров</a>
                        <a href="<?= app()->route->getUrl('/employee') ?>">Добавить нового сотрудника</a>
                        <a href="<?= app()->route->getUrl('/colculate_compos') ?>">Подсчет состава</a>
                        <a href="<?= app()->route->getUrl('/department_sel') ?>">Выбор подразделения</a>
-                       <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
                        <a href="<?= app()->route->getUrl('/tier') ?>">Прикрепить сотрудника</a>
                        <a href="<?= app()->route->getUrl('/Add_employee') ?>">Добавить сотрудника отдела кадров</a>
                    </li>
@@ -50,6 +47,7 @@
        <?php
        else:
            ?>
+           <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
            <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
        <?php
        endif;

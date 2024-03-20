@@ -50,22 +50,6 @@ public function logout(): void
    app()->route->redirect('/hello');
 }
 
-
-public function frames(Request $request): string
-{
-   //Если просто обращение к странице, то отобразить форму
-   if ($request->method === 'GET') {
-       return new View('site.frames');
-   }
-
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-       app()->route->redirect('/frames');
-   }
-   //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'hello working']);
-}
-
 public function colculate_compos(Request $request): string
 {
    //Если просто обращение к странице, то отобразить форму
