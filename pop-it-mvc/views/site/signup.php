@@ -5,6 +5,7 @@
       <h2>Регистрация</h2>
       <div class="column">
    <!--<label>Логин<br><input type="text" name="name" placeholder="Kripper2004" required></label>-->
+   <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
    <label>Логин<br><input type="text" name="login" placeholder="Kripper2004" required></label>
    <label>Пароль<br><input type="password" name="password" placeholder="****" required></label>   
    <button>Зарегистрировать</button>
