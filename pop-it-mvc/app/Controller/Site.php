@@ -33,7 +33,6 @@ class Site
    public function signup(Request $request): string
 {
    if ($request->method === 'POST') {
-
        $validator = new Validator($request->all(), [
            'name' => ['required'],
            'login' => ['required', 'unique:users,login'],
@@ -52,7 +51,11 @@ class Site
            app()->route->redirect('/login');
        }
    }
+   if (app()->auth::user()->link_to_the_role != 2){ 
     return new View('site.signup');
+} else {
+    return new View('site.hello', ['message' => 'Доступ закрыт!']);
+}
 
 }
 
@@ -81,9 +84,14 @@ public function logout(): void
 public function colculate_compos(Request $request): string
 {
    //Если просто обращение к странице, то отобразить форму
-   if ($request->method === 'GET') {
-       return new View('site.colculate_compos');
-   }
+   if (app()->auth::user()->link_to_the_role != 2){ 
+    if ($request->method === 'GET') {
+        return new View('site.colculate_compos');
+    }
+} else {
+    return new View('site.hello', ['message' => 'Доступ закрыт!']);
+}
+   
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
@@ -97,7 +105,12 @@ public function colculate_compos(Request $request): string
 public function department_sel(Request $request): string
 {
    //Если просто обращение к странице, то отобразить форму
-   $users = User::all();
+   if (app()->auth::user()->link_to_the_role != 2){ 
+    $users = User::all();
+} else {
+    return new View('site.hello', ['message' => 'Доступ закрыт!']);
+}
+   
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
        app()->route->redirect('/department_sel');
@@ -165,9 +178,14 @@ public function Add_employee(Request $request): string
 public function employee(Request $request): string
 {
    //Если просто обращение к странице, то отобразить форму
-   if ($request->method === 'GET') {
-       return new View('site.employee');
-   }
+   if (app()->auth::user()->link_to_the_role != 2){ 
+    if ($request->method === 'GET') {
+        return new View('site.employee');
+    }
+} else {
+    return new View('site.hello', ['message' => 'Доступ закрыт!']);
+}
+   
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
