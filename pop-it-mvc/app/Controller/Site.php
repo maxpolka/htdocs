@@ -5,124 +5,169 @@ namespace Controller;
 use Model\Post;
 use Src\View;
 use Src\Request;
-use Model\User;
 use Src\Auth\Auth;
+use Model\User;
+use Model\Role;
+use Model\Employees;
+use Model\Subunit;
 use Src\Validator\Validator;
 
 class Site
-{ 
+{
     public function index(Request $request): string
     {
        $posts = Post::where('id', $request->id)->get();
        return (new View())->render('site.post', ['posts' => $posts]);
-    }    
-
-   public function hello(): string
-   {
-       return new View('site.hello', ['message' => 'Главная страница. Если вы это видите - вы авторизировались успешно!']);
-   }
-
-  /* public function signup(Request $request): string
-   {
-      if ($request->method === 'POST' && User::create($request->all())) {
-          app()->route->redirect('/login');
-      }
-      return new View('site.signup');
-   }*/
-
-   public function signup(Request $request): string
-{
-   if ($request->method === 'POST') {
-       $validator = new Validator($request->all(), [
-           'name' => ['required'],
-           'login' => ['required', 'unique:users,login'],
-           'password' => ['required']
-       ], [
-           'required' => 'Поле :field пусто',
-           'unique' => 'Поле :field должно быть уникально'
-       ]);
-
-       if($validator->fails()){
-           return new View('site.signup',
-               ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
-       }
-
-       if (User::create($request->all())) {
-           app()->route->redirect('/login');
-       }
-   }
-   if (app()->auth::user()->link_to_the_role != 2){ 
-    return new View('site.signup');
-} else {
-    return new View('site.hello', ['message' => 'Доступ закрыт!']);
-}
-
-}
-
-   
-   public function login(Request $request): string
-{
-   //Если просто обращение к странице, то отобразить форму
-   if ($request->method === 'GET') {
-       return new View('site.login');
-   }
-
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-       app()->route->redirect('/hello');
-   }
-   //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.login', ['message' => 'Неправильные логин или пароль']);
-}
-
-public function logout(): void
-{
-   Auth::logout();
-   app()->route->redirect('/hello');
-}
-
-public function colculate_compos(Request $request): string
-{
-   //Если просто обращение к странице, то отобразить форму
-   if (app()->auth::user()->link_to_the_role != 2){ 
-    if ($request->method === 'GET') {
-        return new View('site.colculate_compos');
-    }
-} else {
-    return new View('site.hello', ['message' => 'Доступ закрыт!']);
-}
-   
-
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-       app()->route->redirect('/colculate_compos');
-   }
-
-   //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'hello working']);
-}
-
-public function department_sel(Request $request): string
-{
-   //Если просто обращение к странице, то отобразить форму
-   if (app()->auth::user()->link_to_the_role != 2){ 
-    $users = User::all();
-} else {
-    return new View('site.hello', ['message' => 'Доступ закрыт!']);
-}
-   
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-       app()->route->redirect('/department_sel');
     }
     
-    function __calculateAge($users){
-        $srvozrast = 0;
-        $i = 0;
-        if(!empty($users)) {
-            foreach ($users as $user) {
-                $date = $user->date;
-                $birthDate = new \DateTime($date);
+   public function hello(): string
+   {
+       return new View('site.hello', ['message' => 'hello working']);
+   }
+   
+   public function signup(Request $request): string
+    {
+        if ($request->method === 'POST') {
+
+            $validator = new Validator($request->all(), [
+                'name' => ['required'],
+                'login' => ['required', 'unique:users,login'],
+                'password' => ['required']
+            ], [
+                'required' => 'Поле :field пусто',
+                'unique' => 'Поле :field должно быть уникально'
+            ]);
+     
+            if($validator->fails()){
+                return new View('site.signup',
+                    ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
+            }
+     
+            if (User::create($request->all())) {
+                app()->route->redirect('/login');
+            }
+        }
+        return new View('site.signup');
+     
+        $roles = role::all();
+        if ($request->method === 'POST' && User::create($request->all())) {
+            app()->route->redirect('/hello');
+        }
+
+        return new View('site.signup', ['roles' => $roles]);
+    }
+
+    public function login(Request $request): string
+    {
+        //Если просто обращение к странице, то отобразить форму
+        if ($request->method === 'GET') {
+            return new View('site.login');
+        }
+        //Если удалось аутентифицировать пользователя, то редирект
+        if (Auth::attempt($request->all())) {
+            app()->route->redirect('/hello');
+        }
+        //Если аутентификация не удалась, то сообщение об ошибке
+        return new View('site.login', ['message' => 'Неправильные логин или пароль']);
+    }
+
+    public function logout(): void
+    {
+        Auth::logout();
+        app()->route->redirect('/hello');
+    }
+
+    public function employees(Request $request): string
+    {
+        if($request->method === 'POST'){
+            $properties = [
+                "login" => $request->all()["login"],
+                "password" => $request->all()["password"],
+                "role" => 2
+            ];
+
+            if (User::create($properties)) {
+                app()->route->redirect('/employees');
+            }
+        }
+        
+        $users = User::all();
+        $roles = role::all();
+        $subunits = Subunit::all();
+
+        return new View('site.employees', [
+            'subunits' => $subunits, 
+            'users' => $users, 
+            'roles' => $roles
+        ]);
+    }
+
+    public function emp(Request $request): string
+    {
+        if($request->method === 'POST'){
+            $empData = $request->all();
+            
+            $dateOfBirth = $empData['Date_of_Birth'];
+            $birthDate = new \DateTime($dateOfBirth);
+            $currentDate = new \DateTime();
+            $age = $currentDate->diff($birthDate)->y;
+
+            $empData['Age'] = $age;
+            if (Employees::create($empData)) {
+                app()->route->redirect('/hello');
+            }
+        }
+        
+        $users = User::all();
+        $roles = role::all();
+        $subunits = Subunit::all();
+
+
+
+        return new View('site.emp', [
+            'subunits' => $subunits, 
+            'users' => $users, 
+            'roles' => $roles
+        ]);
+    }
+
+    public function subunit(Request $request): string
+    {
+        $subunits = Subunit::all();
+        if ($request->method === 'POST' && Subunit::create($request->all())) {
+            app()->route->redirect('/hello');
+        }
+
+        return new View('site.subunit', ['subunits' => $subunits]);
+    }
+
+
+    // public function assign_an_employee(Request $request): string
+    // {
+
+    //     //Если просто обращение к странице, то отобразить форму
+    //     if ($request->method === 'GET') {
+    //         return new View('site.assign_an_employee');
+    //     }
+
+    //     //Если удалось аутентифицировать пользователя, то редирект
+    //     if (Auth::attempt($request->all())) {
+    //         app()->route->redirect('/hello');
+    //     }
+    //     //Если аутентификация не удалась, то сообщение об ошибке
+    //     return new View('site.hello', ['message' => 'hello working']);
+    // }
+
+    public function calculate(Request $request): string
+    {
+        $subunits = Subunit::all();
+
+        function __calculateAge($employees){
+            $srvozrast = 0;
+            $i = 0;
+            foreach ($employees as $employee) {
+                $dateOfBirth = $employee->Date_of_Birth;
+                $birthDate = new \DateTime($dateOfBirth);
                 $currentDate = new \DateTime();
                 $age = $currentDate->diff($birthDate)->y;
                 $srvozrast += $age;
@@ -134,67 +179,45 @@ public function department_sel(Request $request): string
             $srvozrast = $srvozrast / $i;
             return $srvozrast;
         }
+        
+        if($request->method === 'POST'){
+            $filter = $request->all()['Subunit_ID'];
+            if($filter){
+                $allemps = Employees::where('Subunit_ID', $filter)->get();
+            }
+            else {
+                $allemps = Employees::all();
+
+            }
+            $srvozrast = __calculateAge($allemps);
+
+            return new View('site.calculate', ['message' => 'hello working', 'subunits' => $subunits , 'srvozrast' => $srvozrast]);
+        }
+
+        return new View('site.calculate', [
+            'message' => 'hello working',
+            'subunits' => $subunits,
+            'srvozrast' => ''
+        ]);
     }
-    $srvozras = __calculateAge($users);
-    //Если аутентификация не удалась, то сообщение об ошибке
-    return new View('site.department_sel', ['message' => 'hello working', "srvozrast"=>$srvozras]);
-}
+    public function subunit_sel(Request $request): string
+    {
+        $subunits = Subunit::all();
 
-public function tier(Request $request): string
-{
-    //Если просто обращение к странице, то отобразить форму
-    if (app()->auth::user()->link_to_the_role == 1){ 
-    if ($request->method === 'GET') {
-        return new View('site.tier');
-    }}
-    
-    
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-    
-       app()->route->redirect('/tier');
-    
-   }
-   //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'Доступ закрыт!']);
-}
-   
-public function Add_employee(Request $request): string
-{
-   //Если просто обращение к странице, то отобразить форму
-   if (app()->auth::user()->link_to_the_role == 1){ 
-   if ($request->method === 'GET') {
-       return new View('site.Add_employee');
-   }}
+        if (isset($request->all()["subdivision"])) {
+            $employees = Employees::where("Subunit_ID", $request->all()["subdivision"])->get();
 
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-       app()->route->redirect('/Add_employee');
-   }
-   //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'Доступ закрыт']);
-}
+            return new View('site.subunit_sel', [
+                'message' => 'hello working',
+                "subdivisions" => $subunits,
+                "employees" => $employees
+            ]);
+        }
 
-public function employee(Request $request): string
-{
-   //Если просто обращение к странице, то отобразить форму
-   if (app()->auth::user()->link_to_the_role != 2){ 
-    if ($request->method === 'GET') {
-        return new View('site.employee');
+        return new View('site.subunit_sel', [
+            'message' => 'hello working',
+            "subdivisions" => $subunits,
+        ]);
     }
-} else {
-    return new View('site.hello', ['message' => 'Доступ закрыт!']);
-}
-   
-
-   //Если удалось аутентифицировать пользователя, то редирект
-   if (Auth::attempt($request->all())) {
-       app()->route->redirect('/employee');
-   }
-   //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'hello working']);
-}
-
-
 
 }

@@ -5,6 +5,7 @@ namespace Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Src\Auth\IdentityInterface;
+use App\Models\Role;
 
 class User extends Model implements IdentityInterface
 {
@@ -13,17 +14,9 @@ class User extends Model implements IdentityInterface
    public $timestamps = false;
    protected $fillable = [
        'name',
-       'surname',
-       'patronymic',
-       'gender',
-       'date',
-       'visa',
-       'post',
-       'subdivision',
-       'type_of_employee',
        'login',
        'password',
-       'link_to_the_role'
+       'role'
    ];
 
    protected static function booted()
@@ -49,12 +42,16 @@ class User extends Model implements IdentityInterface
    //Возврат аутентифицированного пользователя
    public function attemptIdentity(array $credentials)
    {
-       if(isset($credentials['login']) && isset($credentials['password'])) {
-           $user = self::where(['login' => $credentials['login'],
-                                'password' => md5($credentials['password'])])->first();
-           return $user;
-       } else {
-           return null; // Или можно бросить исключение или предпринять другие действия в зависимости от логики вашего приложения
-       }
+       return self::where(['login' => $credentials['login'],
+           'password' => md5($credentials['password'])])->first();
    }
+
+   public static function role($id) {
+        $user = User::find($id); // Получаем пользователя по его ID
+
+        $role = $user->role;
+        
+        if ($role == 1) return "admin";
+        elseif ($role == 2) return "hr";
+    }
 }
