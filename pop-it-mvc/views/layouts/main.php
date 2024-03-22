@@ -47,7 +47,6 @@
        <?php
        else:
            ?>
-           <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
            <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
        <?php
        endif;

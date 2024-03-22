@@ -3,11 +3,6 @@
    <div>
       <h2>Добавить сотрудника</h2>
       <div class="column">
-   <label>Логин<br><select name="gender" id="gender">
-      <option value="none">Саня228</option>
-      <option value="man">гоха</option>
-      <option value="woman">Boomer1994</option>
-   </select></label>
    <label>Имя<br><input type="text" name="name" placeholder="Иван" required></label>
    <label>Фамилия<br><input type="text" name="surname" placeholder="Иванов" required></label>
    <label>Отчество<br><input type="text" name="patronymic" placeholder="Иванович" required></label>

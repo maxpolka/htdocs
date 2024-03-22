@@ -1,4 +1,3 @@
-<h3><?= $message ?? ''; ?></h3>
 <form method="post" class='d-flex justify-content-center'>
    <div class='border border-5 border-dark center rounded-3'>
    <div>
