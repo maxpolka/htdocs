@@ -4,10 +4,10 @@
    <div>
       <h2>Выбор по<br> подразделению</h2>
       <div class="column">
-   <label>Подразделение<br><select name="gender" id="gender">
+   <label>Подразделение<br><select name="subdivision" id="subdivision">
       <option value="none">Первое</option>
-      <option value="man">Второе</option>
-      <option value="woman">Третье</option>
+      <option value="one">Второе</option>
+      <option value="two">Третье</option>
    </select><button id="department_button">Выбор</button></label>
    <ul class='list_ul'>
          <li>Первое</li>
@@ -16,6 +16,7 @@
          <li>Четвертое</li>
       </ul>
       <strong>Средний возраст: XX</strong>
+      <?= $srvozrast ?>
 </div>
 </div>
 </div>

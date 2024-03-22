@@ -14,3 +14,5 @@ Route::add(['GET', 'POST'], '/tier', [Controller\Site::class, 'tier']);
 Route::add(['GET', 'POST'], '/Add_employee', [Controller\Site::class, 'Add_employee']);
 Route::add(['GET', 'POST'], '/employee', [Controller\Site::class, 'employee']);
 
+
+

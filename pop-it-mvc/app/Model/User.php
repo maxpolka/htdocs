@@ -12,7 +12,7 @@ class User extends Model implements IdentityInterface
 
    public $timestamps = false;
    protected $fillable = [
-       /*'name',
+       'name',
        'surname',
        'patronymic',
        'gender',
@@ -20,7 +20,7 @@ class User extends Model implements IdentityInterface
        'visa',
        'post',
        'subdivision',
-       'type_of_employee',*/
+       'type_of_employee',
        'login',
        'password',
        'link_to_the_role'
@@ -49,14 +49,12 @@ class User extends Model implements IdentityInterface
    //Возврат аутентифицированного пользователя
    public function attemptIdentity(array $credentials)
    {
-       $user = self::where(['login' => $credentials['login'],
-                            'password' => md5($credentials['password'])])->first();
-   
-       if ($user) {
-           $user->link_to_the_role = 2; // Привязка ко второму значению в поле name_of_the_role
-           $user->save();
+       if(isset($credentials['login']) && isset($credentials['password'])) {
+           $user = self::where(['login' => $credentials['login'],
+                                'password' => md5($credentials['password'])])->first();
+           return $user;
+       } else {
+           return null; // Или можно бросить исключение или предпринять другие действия в зависимости от логики вашего приложения
        }
-   
-       return $user;
    }
 }

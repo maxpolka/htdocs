@@ -23,6 +23,11 @@
       <option value="2">2</option>
       <option value="3">3</option>
    </select></label>
+   <label>Состав<br><select name="gender" id="gender">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+   </select></label>
    <label>Подразделение<br><select name="gender" id="gender">
       <option value="1">1</option>
       <option value="2">2</option>
