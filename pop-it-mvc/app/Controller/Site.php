@@ -19,7 +19,7 @@ class Site
 
    public function hello(): string
    {
-       return new View('site.hello', ['message' => 'hello working']);
+       return new View('site.hello', ['message' => 'Главная страница. Если вы это видите - вы авторизировались успешно!']);
    }
 
   /* public function signup(Request $request): string
@@ -52,7 +52,8 @@ class Site
            app()->route->redirect('/login');
        }
    }
-   return new View('site.signup');
+    return new View('site.signup');
+
 }
 
    
@@ -129,31 +130,36 @@ public function department_sel(Request $request): string
 public function tier(Request $request): string
 {
     //Если просто обращение к странице, то отобразить форму
+    if (app()->auth::user()->link_to_the_role == 1){ 
     if ($request->method === 'GET') {
         return new View('site.tier');
-    }
+    }}
+    
     
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
+    
        app()->route->redirect('/tier');
+    
    }
    //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'hello working']);
+   return new View('site.hello', ['message' => 'Доступ закрыт!']);
 }
    
 public function Add_employee(Request $request): string
 {
    //Если просто обращение к странице, то отобразить форму
+   if (app()->auth::user()->link_to_the_role == 1){ 
    if ($request->method === 'GET') {
        return new View('site.Add_employee');
-   }
+   }}
 
    //Если удалось аутентифицировать пользователя, то редирект
    if (Auth::attempt($request->all())) {
        app()->route->redirect('/Add_employee');
    }
    //Если аутентификация не удалась, то сообщение об ошибке
-   return new View('site.hello', ['message' => 'hello working']);
+   return new View('site.hello', ['message' => 'Доступ закрыт']);
 }
 
 public function employee(Request $request): string

@@ -33,11 +33,15 @@
                    </li>
                <?php elseif (app()->auth::user()->link_to_the_role == 1): ?>
                    <li>
-                       <p>Для администратора</p>
+                       <p>Для сотрудников отдела кадров</p>
                        <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
                        <a href="<?= app()->route->getUrl('/employee') ?>">Добавить нового сотрудника</a>
                        <a href="<?= app()->route->getUrl('/colculate_compos') ?>">Подсчет состава</a>
                        <a href="<?= app()->route->getUrl('/department_sel') ?>">Выбор подразделения</a>
+                   </li>
+                   <br>
+                   <li>
+                       <p>Для администратора</p>
                        <a href="<?= app()->route->getUrl('/tier') ?>">Прикрепить сотрудника</a>
                        <a href="<?= app()->route->getUrl('/Add_employee') ?>">Добавить сотрудника отдела кадров</a>
                    </li>
